@@ -52,7 +52,7 @@ export const getAllInvetoryDetails = async (req, res) => {
         model: "inventoryHeader",
         populate: { path: "propertyId", model: "Property", select: "address" },
       })
-      .populate({ path: "inventoryDetail.ambientId", model: "Ambient" })
+      .populate({ path: "inventoryDetail", model: "Ambient" })
       .populate({ path: "inventoryDetail.itemId", model: "Item" })
       .populate({ path: "inventoryDetail.itemDetailId", model: "itemDetail" });
 
