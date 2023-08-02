@@ -35,7 +35,7 @@ export const createInventoryDetail = async (req, res) => {
   try {
     const newInventoryDetail = await InventoryDetail.create({
       inventoryId,
-      inventoryDetail,
+      inventoryDetails: inventoryDetail,
     });
     res.status(201).json({ status: 201, inventoryDetail: newInventoryDetail });
   } catch (error) {
@@ -46,15 +46,24 @@ export const createInventoryDetail = async (req, res) => {
 
 export const getAllInvetoryDetails = async (req, res) => {
   try {
-    const item = await InventoryDetail.find()
+    /* const item = await InventoryDetail.find()
       .populate({
         path: "inventoryId",
         model: "inventoryHeader",
         populate: { path: "propertyId", model: "Property", select: "address" },
       })
-      .populate({ path: "inventoryDetail", model: "Ambient" })
-      .populate({ path: "inventoryDetail.itemId", model: "Item" })
-      .populate({ path: "inventoryDetail.itemDetailId", model: "itemDetail" });
+      .populate({
+        path: "inventoryDetails.ambientId",
+        model: "Ambient",
+      })
+      .populate({ path: "inventoryDetails.itemId", model: "Item" })
+      .populate({ path: "inventoryDetails.itemDetailId", model: "itemDetail" })
+      .exec();
+*/
+    const item = await InventoryDetail.find().populate({
+      path: "inventoryDetails.ambientId",
+      model: "Ambient",
+    });
 
     if (item.length) {
       return res.json({ status: 201, item });

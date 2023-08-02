@@ -11,7 +11,7 @@ const inventoryDetailSchema = new mongoose.Schema({
     required: true,
   },
 
-  inventoryDetail: [
+  inventoryDetails: [
     {
       ambientId: {
         type: mongoose.Schema.Types.ObjectId,
