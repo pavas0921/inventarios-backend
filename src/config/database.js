@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const connect = async () => {
   const mongoURI =
-    process.env.MONGO_URI || "mongodb://localhost:27017/inventariosdb";
+    process.env.DB
   const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -17,3 +21,4 @@ const connect = async () => {
 };
 
 export { connect };
+
