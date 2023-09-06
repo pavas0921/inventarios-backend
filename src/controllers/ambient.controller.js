@@ -1,7 +1,5 @@
-import Ambient from "../models/ambient.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
+import Ambient from "../models/ambient.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -26,9 +24,9 @@ export const verifyToken = (req, res, next) => {
 // Obtener todos los Ambient
 export const getAllAmbients = async (req, res) => {
   try {
-    const item = await Ambient.find();
-    if (item.length) {
-      return res.json({ status: 201, item });
+    const itemAmbient = await Ambient.find();
+    if (itemAmbient.length) {
+      return res.json({ status: 201, itemAmbient });
     } else {
       return res.json({ status: 204, message: "No content" });
     }

@@ -1,13 +1,15 @@
 import express from "express";
 import {
   createInventoryHeader,
-  getInventoryHeadersByPropertyId,
+  getInventoryHeaders,
+  getInventoryHeadersByPropertyId
 } from "../controllers/inventoryHeader.controller.js";
-import Property from "../models/property.js";
 
 const router = express.Router();
 
 router.post("/", createInventoryHeader);
+
+router.get("/", getInventoryHeaders);
 
 router.get("/:propertyId", getInventoryHeadersByPropertyId);
 

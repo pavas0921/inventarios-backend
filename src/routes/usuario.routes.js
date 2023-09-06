@@ -1,13 +1,13 @@
 import express from "express";
 import {
   createUser,
-  getAllUsers,
-  getuserById,
-  updateuser,
   deleteuser,
+  getAllUsers,
   login,
-  generateToken,
+  updateuser
 } from "../controllers/user.controller.js";
+
+import { generateToken } from "../helpers/generateToken.js";
 
 const router = express.Router();
 

@@ -1,7 +1,5 @@
-import Owner from "../models/owner.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
+import Owner from "../models/owner.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -51,7 +49,7 @@ export const createOwner = async (req, res) => {
       address,
       phone,
     });
-    res.status(201).json({ status: 201, owner });
+    res.status(201).json({ error: true, status: "success", message: "¡Cliente registrado con éxito!" });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error });

@@ -1,12 +1,5 @@
-import InventoryDetail from "../models/inventoryDetail.js";
-import inventoryHeader from "../models/inventoryHeader.js";
-import Ambient from "../models/ambient.js";
-import Item from "../models/item.js";
-import itemDetail from "../models/itemDetail.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
-import Property from "../models/property.js";
+import InventoryDetail from "../models/inventoryDetail.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -46,7 +39,7 @@ export const createInventoryDetail = async (req, res) => {
 
 export const getAllInvetoryDetails = async (req, res) => {
   try {
-    /* const item = await InventoryDetail.find()
+     const item = await InventoryDetail.find()
       .populate({
         path: "inventoryId",
         model: "inventoryHeader",
@@ -59,11 +52,11 @@ export const getAllInvetoryDetails = async (req, res) => {
       .populate({ path: "inventoryDetails.itemId", model: "Item" })
       .populate({ path: "inventoryDetails.itemDetailId", model: "itemDetail" })
       .exec();
-*/
-    const item = await InventoryDetail.find().populate({
+
+    /*const item = await InventoryDetail.find().populate({
       path: "inventoryDetails.ambientId",
       model: "Ambient",
-    });
+    });*/
 
     if (item.length) {
       return res.json({ status: 201, item });

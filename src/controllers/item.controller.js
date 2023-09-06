@@ -1,7 +1,5 @@
-import Item from "../models/item.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
+import Item from "../models/item.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -40,9 +38,9 @@ export const createItem = async (req, res) => {
 
 export const getAllItem = async (req, res) => {
   try {
-    const item = await Item.find();
-    if (item.length) {
-      return res.json({ status: 201, item });
+    const dataItem = await Item.find();
+    if (dataItem.length) {
+      return res.json({ status: 201, dataItem });
     } else {
       return res.json({ status: 204, message: "No content" });
     }

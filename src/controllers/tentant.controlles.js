@@ -1,7 +1,5 @@
-import Tenant from "../models/tenant.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
+import Tenant from "../models/tenant.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -38,7 +36,7 @@ export const getAllTenants = async (req, res) => {
   }
 };
 
-// Crear un nuevo rol
+// Crear un nuevo inquilino
 export const createTenant = async (req, res) => {
   console.log("hola");
   const { first_name, last_name, cedula, email, address, phone } = req.body;
@@ -51,7 +49,7 @@ export const createTenant = async (req, res) => {
       address,
       phone,
     });
-    res.status(201).json({ status: 201, tenant });
+    res.status(201).json({ error: true, status: "success", message: "¡Inquilino registrado con éxito!" });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error });

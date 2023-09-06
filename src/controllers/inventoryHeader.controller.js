@@ -1,7 +1,9 @@
-import inventoryHeader from "../models/inventoryHeader.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import CONFIG from "../config/config.js";
+import inventoryHeader from "../models/inventoryHeader.js";
+
+// Constantes para códigos de estado HTTP
+const HTTP_NOT_FOUND = 404;
+const HTTP_INTERNAL_SERVER_ERROR = 500;
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
@@ -32,7 +34,8 @@ export const createInventoryHeader = async (req, res) => {
       date,
       witness,
     });
-    res.status(201).json({ status: 201, item });
+    res.status(201).json({ error: true, status: "success", message: "Inventario registrado con éxito" });
+    
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error });
@@ -44,6 +47,31 @@ export const getInventoryHeadersByPropertyId = async (req, res) => {
   try {
     const inventoryHeaders = await inventoryHeader.find({ propertyId });
     if (inventoryHeaders.length) {
+      return res.json({ status: 201, inventoryHeaders });
+    } else {
+      return res.json({ status: 204, message: "No content" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al obtener los inventoryHeader" });
+  }
+};
+
+export const getInventoryHeaders = async (req, res) => {
+  //const { propertyId } = req.params;
+  try {
+    const inventoryHeaders = await inventoryHeader.find()
+    .populate({
+      path: "propertyId",
+      model: "Property",
+      populate: [
+        { path: 'ownerId', model: 'Owner' },
+        { path: 'tenantId', model: 'Tenant' }
+      ]
+    })
+    .sort({date: 1})
+   
+    if (inventoryHeaders.length > 0) {
       return res.json({ status: 201, inventoryHeaders });
     } else {
       return res.json({ status: 204, message: "No content" });
